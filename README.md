@@ -129,18 +129,25 @@ docker run -it --name local-api -p 5000:5000 -e MONGO_URI="mongodb://host.docker
    ```
 
 ### 2. Install Kubernetes (K3s)
-We use K3s, a lightweight, highly-optimized Kubernetes distribution:
-```bash
-# Install K3s
-curl -sfL https://get.k3s.io | sh -
+We use K3s, a lightweight, highly-optimized Kubernetes distribution. Use the provided setup scripts to automate the installation:
 
-# Configure local Kubeconfig permissions (to run kubectl without sudo)
-mkdir -p ~/.kube
-sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-sudo chown $USER:$USER ~/.kube/config
-export KUBECONFIG=~/.kube/config
-echo 'export KUBECONFIG=~/.kube/config' >> ~/.bashrc
-```
+1. **Common setup** (Run on all nodes - Master & Workers):
+   ```bash
+   bash k8s-common-containerd.sh
+   ```
+   This script sets up containerd and common Kubernetes prerequisites.
+
+2. **Master node initialization** (Run only on the master/control plane):
+   ```bash
+   bash k8s-master-init.sh
+   ```
+   This script initializes the Kubernetes master node and provides the join token for worker nodes.
+
+3. **Worker node join** (Run on each worker node):
+   ```bash
+   bash k8s-worker-join.sh
+   ```
+   This script joins worker nodes to the Kubernetes cluster using the token from the master initialization.
 
 ### 3. Set Up Persistent Host Storage
 Create the directory on the host where MongoDB will write its database files and grant appropriate write permissions:
