@@ -1,29 +1,29 @@
-# 🚀 Kubernetes Microservice: Flask & MongoDB Application
+#  Kubernetes Microservice: Flask & MongoDB Application
 
 A modern, containerized Flask microservice backed by MongoDB, deployed on Kubernetes. This application showcases production-grade containerization, persistent storage volume mapping, internal service routing, and deployment readiness on modern cloud platforms like **AWS EC2**.
 
 ---
 
-## 📋 Table of Contents
-- [✨ Key Features](#-key-features)
-- [🛠 Tech Stack & Modernizations](#-tech-stack--modernizations)
-- [📐 Microservice Connection Architecture](#-microservice-connection-architecture)
-- [📦 Local Development (Docker)](#-local-development-docker)
-- [☁️ AWS EC2 & Kubernetes Deployment Guide](#%EF%B8%8F-aws-ec2--kubernetes-deployment-guide)
+##  Table of Contents
+- [ Key Features](#-key-features)
+- [ Tech Stack & Modernizations](#-tech-stack--modernizations)
+- [ Microservice Connection Architecture](#-microservice-connection-architecture)
+- [ Local Development (Docker)](#-local-development-docker)
+- [ AWS EC2 & Kubernetes Deployment Guide](#%EF%B8%8F-aws-ec2--kubernetes-deployment-guide)
   - [1. Launch & Configure EC2 Instance](#1-launch--configure-ec2-instance)
   - [2. Install Kubernetes (K3s)](#2-install-kubernetes-k3s)
   - [3. Set Up Persistent Host Storage](#3-set-up-persistent-host-storage)
   - [4. Build & Push Your Custom Docker Image](#4-build--push-your-custom-docker-image)
   - [5. Deploy Microservices to Kubernetes](#5-deploy-microservices-to-kubernetes)
-- [🔌 API Endpoint Reference](#-api-endpoint-reference)
-- [🚨 Advanced Troubleshooting Guide](#-advanced-troubleshooting-guide)
+- [ API Endpoint Reference](#-api-endpoint-reference)
+- [ Advanced Troubleshooting Guide](#-advanced-troubleshooting-guide)
   - [1. Exit Code 139: MongoDB Segmentation Fault (SIGSEGV)](#1-exit-code-139-mongodb-segmentation-fault-sigsegv)
   - [2. Exit Code 62: Wrong mongod Version (FCV Mismatch)](#2-exit-code-62-wrong-mongod-version-fcv-mismatch)
   - [3. Strict Decoding Error (YAML Indentation Error)](#3-strict-decoding-error-yaml-indentation-error)
 
 ---
 
-## ✨ Key Features
+##  Key Features
 - **Modern REST API**: Clean RESTful endpoints implementing full CRUD operations on tasks.
 - **Persistent Database State**: Integrated with MongoDB using Kubernetes PersistentVolumes (`PV`) and Claims (`PVC`) to guarantee data preservation across pod rescheduling or failures.
 - **Robust Exposure**: Configured with a `NodePort` service type to cleanly expose the REST API on a dedicated node port (`30007`) for external clients.
@@ -31,7 +31,7 @@ A modern, containerized Flask microservice backed by MongoDB, deployed on Kubern
 
 ---
 
-## 🛠 Tech Stack & Modernizations
+##  Tech Stack & Modernizations
 - **Backend**: **Flask 3.1.3** & **PyMongo 4.17.0** (coupled with Flask-PyMongo 3.0.1)
   - *Modernization*: Safe, modern database queries using PyMongo 4+ standard `delete_many({})`.
 - **Base OS Image**: **Python 3.12-alpine** for lightweight, highly secure, fast container images.
@@ -40,7 +40,7 @@ A modern, containerized Flask microservice backed by MongoDB, deployed on Kubern
 
 ---
 
-## 📐 Microservice Connection Architecture
+##  Microservice Connection Architecture
 
 Your application is split into a **Frontend/API tier** and a **Database tier**, coordinating seamlessly inside the Kubernetes cluster:
 
@@ -94,7 +94,7 @@ Your application is split into a **Frontend/API tier** and a **Database tier**, 
 
 ---
 
-## 📦 Local Development (Docker)
+##  Local Development (Docker)
 
 To run the Flask API locally using raw Docker:
 
@@ -114,7 +114,7 @@ docker run -it --name local-api -p 5000:5000 -e MONGO_URI="mongodb://host.docker
 
 ---
 
-## ☁️ AWS EC2 & Kubernetes Deployment Guide
+##  AWS EC2 & Kubernetes Deployment Guide
 
 ### 1. Launch & Configure EC2 Instance
 1. Launch an **Ubuntu 22.04 LTS** or **Ubuntu 24.04 LTS** EC2 Instance.
@@ -197,7 +197,7 @@ kubectl get pods -w
 
 ---
 
-## 🔌 API Endpoint Reference
+##  API Endpoint Reference
 
 Once deployed, the NodePort service exposes your Flask API on port **`30007`**. You can interact with it via terminal using **`curl`**:
 
@@ -212,7 +212,7 @@ Once deployed, the NodePort service exposes your Flask API on port **`30007`**. 
 
 ---
 
-## 🚨 Advanced Troubleshooting Guide
+##  Advanced Troubleshooting Guide
 
 ### 1. Exit Code 139: MongoDB Segmentation Fault (SIGSEGV)
 - **Symptom**: The MongoDB Pod enters `CrashLoopBackOff`, and `kubectl describe` shows a termination with `Exit Code: 139` (often within 30 seconds of starting up).
